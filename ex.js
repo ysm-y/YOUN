@@ -5,7 +5,7 @@ import * as z from "zod/v4";
 
 function createMcpServer() {
   const server = new McpServer({
-    name: "student-mcp",
+    name: "재모띠 student-mcp",
     version: "1.0.0"
   });
 
