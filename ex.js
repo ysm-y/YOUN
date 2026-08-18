@@ -31,12 +31,33 @@ function createMcpServer() {
         content: [
           {
             type: "text",
-            text: `
-학생 정보:
-${JSON.stringify(student)}
+            text: `학생 정보:${JSON.stringify(student)} 위 정보를 바탕으로 학생을 자연스럽게 소개해주세요.`
+          }
+        ]
+      };
+    }
+  );
 
-위 정보를 바탕으로 학생을 자연스럽게 소개해주세요.
-`
+  server.registerTool(
+    "get_rss",
+    {
+      description: "rss주소로 뉴스를 가져오는 Tool입니다",
+      // inputSchema: z.object({
+      //   name: z.string().describe("조회할 학생의 이름")
+      // })
+    },
+
+    async () => {
+      const rssUrl = "https://techcrunch.com/feed/";
+
+      const response = await fetch(rssUrl);
+      const xmlData = await response.text();
+
+      return {
+        content: [
+          {
+            type: "text",
+            text: `RSS 피드에서 가져온 데이터를 파싱해서 보기 좋게 작성해주세요: ${xmlData}`
           }
         ]
       };
